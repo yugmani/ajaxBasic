@@ -1,77 +1,47 @@
-// The below code fills in the first row of the table
-var movie1 = "Mr. Nobody";
-var queryURL = "https://www.omdbapi.com/?t=" + movie1 + "&apikey=trilogy";
 
-$.ajax({
-  url: queryURL,
-  method: "GET"
-}).then(function(response) {
-  // Create and save a reference to new empty table row
-  
-  const rowEl = $("<tr>");
- 
-  $("tbody").append(rowEl);
-  const tdEl1 = $("<td>").text(response.Title);
-  const tdEl2 = $("<td>").text(response.Year);
-  const tdEl3 = $("<td>").text(response.Actors);
- 
-  rowEl.append(tdEl1);
-  rowEl.append(tdEl2);
-  rowEl.append(tdEl3);
+// Array of some selected movies 
+let movies = ["Interstellar", "Mr. Nobody", "Avatar", "Commando"]
 
-  // Create and save references to 3 td elements containing the Title, Year, and Actors from the AJAX response object
-  // Append the td elements to the new table row
-  // Append the table row to the tbody element
-});
+//calling function to get movies information from api.
+moviesApi(movies);
 
-let movie2 = "Avatar";
-var URL = "https://www.omdbapi.com/?t=" + movie2 + "&apikey=trilogy";
+    function moviesApi(arr) {
+        for (let i=0; i<movies.length; i++){
+            let queryURL = "https://www.omdbapi.com/?t=" + arr[i] + "&apikey=trilogy";
+        
+            $.ajax({
+            url: queryURL,
+            method: "GET"
+            }).then(function(response) {
+                //calling function to display response to HTML
+                displayResult(response);
+            });
 
-$.ajax({
-    url: URL,
-    method: "GET"
-  }).then(function(response) {
-  console.log(response);
-  console.log(response.Title);
-    // Create and save a reference to new empty table row
-    
-    const rowEl = $("<tr>");
-   
-    $("tbody").append(rowEl);
-    const tdEl1 = $("<td>").text(response.Title);
-    const tdEl2 = $("<td>").text(response.Year);
-    const tdEl3 = $("<td>").text(response.Actors);
-   
-    rowEl.append(tdEl1);
-    rowEl.append(tdEl2);
-    rowEl.append(tdEl3);
-  
-  });
+        }
+    }
 
+    //function to display result in HTML
+    function displayResult(record) {
 
-let movie3 = "Commando";
-let QURL = "https://www.omdbapi.com/?t=" + movie3 + "&apikey=trilogy";
+        let characters = record.Actors.split(",");
+        let htm = `
+            <div id=${record.Title} class="card" style="width: 18rem;">
+            <img src=${record.Poster} class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">${record.Title}</h5>
+                <p class="card-text">${record.Year}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item font-weight-bold" >Actors</li>`
+        for (let j=0; j<characters.length; j++){
+            htm += `<li class="list-group-item">${characters[j]}</li>`
+        
+            }
+        htm += `</ul> </div>`;
 
-$.ajax({
-    url: QURL,
-    method: "GET"
-  }).then(function(response) {
-  console.log(response);
-  console.log(response.Title);
-    // Create and save a reference to new empty table row
-    
-    const rowEl = $("<tr>");
-   
-    $("tbody").append(rowEl);
-    const tdEl1 = $("<td>").text(response.Title);
-    const tdEl2 = $("<td>").text(response.Year);
-    const tdEl3 = $("<td>").text(response.Actors);
-   
-    rowEl.append(tdEl1);
-    rowEl.append(tdEl2);
-    rowEl.append(tdEl3);
-  
-  });
+        $("#movies-card").append(htm);
+    }
+
 // Repeat the above logic to add rows for two more movies of your choice
 
 // BONUS: Once complete, try to make your code as DRY as possible through the use of functions
