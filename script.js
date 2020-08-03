@@ -1,24 +1,20 @@
 // The below code fills in the first row of the table
-var movie = "Mr. Nobody";
-var queryURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy";
+var movie1 = "Mr. Nobody";
+var queryURL = "https://www.omdbapi.com/?t=" + movie1 + "&apikey=trilogy";
 
 $.ajax({
   url: queryURL,
   method: "GET"
 }).then(function(response) {
-console.log(response);
-console.log(response.Title);
   // Create and save a reference to new empty table row
   
   const rowEl = $("<tr>");
-    
-  const tdEl1 = $("<td>");
-  const tdEl2 = $("<td>");
-  const tdEl3 = $("<td>");
-  rowEl.apendTo(".movies-table");
-  tdEl1.text(response.Title);
-  tdEl2.text(response.Year);
-  tdEl3.text(response.Actors);
+ 
+  $("tbody").append(rowEl);
+  const tdEl1 = $("<td>").text(response.Title);
+  const tdEl2 = $("<td>").text(response.Year);
+  const tdEl3 = $("<td>").text(response.Actors);
+ 
   rowEl.append(tdEl1);
   rowEl.append(tdEl2);
   rowEl.append(tdEl3);
@@ -28,6 +24,54 @@ console.log(response.Title);
   // Append the table row to the tbody element
 });
 
+let movie2 = "Avatar";
+var URL = "https://www.omdbapi.com/?t=" + movie2 + "&apikey=trilogy";
+
+$.ajax({
+    url: URL,
+    method: "GET"
+  }).then(function(response) {
+  console.log(response);
+  console.log(response.Title);
+    // Create and save a reference to new empty table row
+    
+    const rowEl = $("<tr>");
+   
+    $("tbody").append(rowEl);
+    const tdEl1 = $("<td>").text(response.Title);
+    const tdEl2 = $("<td>").text(response.Year);
+    const tdEl3 = $("<td>").text(response.Actors);
+   
+    rowEl.append(tdEl1);
+    rowEl.append(tdEl2);
+    rowEl.append(tdEl3);
+  
+  });
+
+
+let movie3 = "Commando";
+let QURL = "https://www.omdbapi.com/?t=" + movie3 + "&apikey=trilogy";
+
+$.ajax({
+    url: QURL,
+    method: "GET"
+  }).then(function(response) {
+  console.log(response);
+  console.log(response.Title);
+    // Create and save a reference to new empty table row
+    
+    const rowEl = $("<tr>");
+   
+    $("tbody").append(rowEl);
+    const tdEl1 = $("<td>").text(response.Title);
+    const tdEl2 = $("<td>").text(response.Year);
+    const tdEl3 = $("<td>").text(response.Actors);
+   
+    rowEl.append(tdEl1);
+    rowEl.append(tdEl2);
+    rowEl.append(tdEl3);
+  
+  });
 // Repeat the above logic to add rows for two more movies of your choice
 
 // BONUS: Once complete, try to make your code as DRY as possible through the use of functions
